@@ -1,0 +1,15 @@
+{
+  "name": "touch-animate",
+  "version": "1.0.0",
+  "description": "touch event animations",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "demo": "serve ."
+  },
+  "author": "felix.gudehn@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^11.3.0"
+  }
+}

@@ -1,0 +1,45 @@
+<html lang="en">
+  <head>
+    <style>
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+      }
+
+      body {
+        display: flex;
+      }
+
+      #swell,
+      #spiral {
+        width: 50%;
+        height: 100%;
+        border: 1px solid gray;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="swell">
+      <h2>Swell</h2>
+    </div>
+    <div id="spiral">
+      <h2>Spiral</h2>
+    </div>
+    <script type="module">
+      import { addTouchAnimation } from "./src/index.js";
+
+      addTouchAnimation(document.getElementById("swell"), {
+        duration: 800,
+        type: "swell",
+        color: "green",
+      });
+      addTouchAnimation(document.getElementById("spiral"), {
+        duration: 1200,
+        radius: 100,
+        color: "tomato",
+        type: "spiral",
+      });
+    </script>
+  </body>
+</html>
