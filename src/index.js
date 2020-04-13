@@ -59,7 +59,6 @@ function addTouchAnimation(element, options) {
     });
 
     animation.start();
-    console.log(animation);
 
     setTimeout(function () {
       canvas.remove();

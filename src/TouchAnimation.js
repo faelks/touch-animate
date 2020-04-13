@@ -60,7 +60,6 @@ export class TouchAnimation {
   }
 
   spiral() {
-    console.log("spiral called");
     const durationStep = this.duration / this.steps;
 
     const spiralIteration = (angle, radius) => {
