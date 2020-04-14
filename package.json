@@ -1,5 +1,5 @@
 {
-  "name": "touch-animate",
+  "name": "@faelks/touch-animate",
   "version": "1.0.1",
   "description": "touch event animations",
   "main": "dist/index.js",
