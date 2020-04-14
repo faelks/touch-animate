@@ -1,14 +1,21 @@
 import { Point } from "./Point.js";
+import { range } from "./utils.js";
+import { Particle } from "./Particle.js";
 
 export class TouchAnimation {
-  constructor({ type, context, origo, radius, steps, duration, color }) {
-    this.context = context;
-    this.origo = origo;
-    this.radius = radius;
+  constructor({ canvas, steps, duration, color, type, particleCount }) {
+    this.canvas = canvas;
     this.steps = steps;
-    this.color = color;
     this.duration = duration;
+    this.color = color;
     this.type = type;
+
+    // Only relevant if type = 'particle'
+    this.particleCount = particleCount;
+
+    this.stepDuration = duration / steps;
+    this.stepDistance = canvas.radius / steps;
+    this.origo = canvas.getOrigo();
   }
 
   start() {
@@ -16,53 +23,38 @@ export class TouchAnimation {
       case "spiral":
         this.spiral();
         break;
-      default:
+      case "particle":
+        console.log("particle");
+        this.particle();
+        break;
+      case "swell":
         this.swell();
+        break;
+      default:
+        throw new Error(`"${this.type}" is not a valid touch animation type`);
     }
   }
 
-  clear() {
-    this.context.clearRect(0, 0, this.radius * 2, this.radius * 2);
-  }
-
-  drawCircle(radius) {
-    this.context.beginPath();
-    this.context.strokeStyle = this.color;
-    this.context.arc(this.origo.x, this.origo.y, radius, 0, 2 * Math.PI);
-    this.context.stroke();
-    this.context.closePath();
-  }
-
-  drawLine(startPoint, endPoint) {
-    this.context.beginPath();
-    this.context.strokeStyle = this.color;
-    this.context.moveTo(startPoint.x, startPoint.y);
-    this.context.lineTo(endPoint.x, endPoint.y);
-    this.context.stroke();
-    this.context.closePath();
-  }
-
   swell() {
-    const durationStep = this.duration / this.steps;
-    const radiusStep = this.radius / this.steps;
-
-    const swellIteration = (i, steps) => {
-      if (i <= steps) {
-        this.drawCircle(radiusStep * i);
-        setTimeout(() => {
-          this.clear();
-          swellIteration(i + 1, steps);
-        }, durationStep);
+    const swellIteration = (i = 0) => {
+      if (i > this.steps) {
+        return;
       }
+
+      this.canvas.drawCircle(this.stepDistance * i);
+
+      setTimeout(() => {
+        this.canvas.clear();
+
+        swellIteration(i + 1);
+      }, this.stepDuration);
     };
 
-    swellIteration(0, this.steps);
+    swellIteration();
   }
 
   spiral() {
-    const durationStep = this.duration / this.steps;
-
-    const spiralIteration = (angle, radius) => {
+    const spiralIteration = (angle = 0, radius = 0) => {
       const newAngle = angle + 1;
       const newRadius = radius + 0.1;
 
@@ -71,13 +63,43 @@ export class TouchAnimation {
 
       const sourcePoint = new Point(x, y);
       const endPoint = sourcePoint.incrementBothBy(2);
-      this.drawLine(sourcePoint, endPoint);
+      this.canvas.drawLine(sourcePoint, endPoint);
 
       setTimeout(() => {
         spiralIteration(newAngle, newRadius);
-      }, durationStep);
+      }, this.stepDuration);
     };
 
-    spiralIteration(0, 0);
+    spiralIteration();
+  }
+
+  particle() {
+    const particles = range(this.particleCount, 1).map((i) => {
+      // Adding a random height width multiplier leads to
+      // differently sized particles.
+      return new Particle({
+        canvas: this.canvas,
+        height: 2 * Math.random(),
+        width: 2 * Math.random(),
+        angle: ((2 * Math.PI) / this.particleCount) * i,
+        steps: this.steps,
+      });
+    });
+
+    const particleIteration = (i = 0) => {
+      if (i > this.steps) {
+        return;
+      }
+      particles.forEach((particle) => {
+        particle.draw(i);
+      });
+
+      setTimeout(() => {
+        this.canvas.clear();
+        particleIteration(i + 1);
+      }, this.stepDuration);
+    };
+
+    particleIteration();
   }
 }

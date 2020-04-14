@@ -2,14 +2,24 @@
   "name": "touch-animate",
   "version": "1.0.0",
   "description": "touch event animations",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "test",
-    "demo": "serve ."
+    "demo": "serve .",
+    "bundle": "npx webpack --mode production"
   },
-  "author": "felix.gudehn@gmail.com",
+  "author": "Felix Gudéhn",
   "license": "ISC",
   "devDependencies": {
-    "serve": "^11.3.0"
+    "serve": "^11.3.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faelks/touch-animate.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@faelks"
   }
 }

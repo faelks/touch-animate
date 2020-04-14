@@ -1,24 +1,7 @@
 import { Point } from "./Point.js";
 import { TouchAnimation } from "./TouchAnimation.js";
+import { Canvas } from "./Canvas.js";
 
-// Create the html canvas element and add styling
-function createCanvas(x, y, radius) {
-  const canvas = document.createElement("canvas");
-  canvas.id = `${Math.random() * 1000}`;
-  canvas.height = radius * 2;
-  canvas.width = radius * 2;
-
-  canvas.style = `
-    position: absolute; 
-    left: ${x - radius}px;
-    top: ${y - radius}px;
-    border-radius: ${radius}px;
-  `;
-
-  return canvas;
-}
-
-// Get library options, use defaults if missing
 function getOptions(inputOptions) {
   const defaultOptions = {
     type: "swell",
@@ -26,6 +9,7 @@ function getOptions(inputOptions) {
     steps: 200,
     radius: 30,
     color: "black",
+    particleCount: 50,
   };
 
   return {
@@ -40,22 +24,25 @@ function addTouchAnimation(element, options) {
     return;
   }
 
-  const { radius, duration, steps, color, type } = getOptions(options);
+  const { radius, duration, steps, color, type, particleCount } = getOptions(
+    options
+  );
 
-  function animate({ x, y }) {
-    const canvas = createCanvas(x, y, radius);
-    const context = canvas.getContext("2d");
-    element.appendChild(canvas);
-
-    const origo = new Point(radius, radius);
-    const animation = new TouchAnimation({
-      context,
-      origo,
+  function animate({ pageX, pageY }) {
+    const canvas = new Canvas({
+      element,
       radius,
+      color,
+      touchPoint: new Point(pageX, pageY),
+    });
+
+    const animation = new TouchAnimation({
+      canvas,
       steps,
       duration,
       color,
       type,
+      particleCount,
     });
 
     animation.start();
