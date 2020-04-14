@@ -31,21 +31,20 @@
     <div id="particle">
       <h2>Particle</h2>
     </div>
-    <script type="module">
-      import { addTouchAnimation } from "./src/index.js";
-
-      addTouchAnimation(document.getElementById("swell"), {
+    <script src="dist/index.js"></script>
+    <script>
+      TouchAnimation.addTouchAnimation(document.getElementById("swell"), {
         duration: 800,
         type: "swell",
         color: "green",
       });
-      addTouchAnimation(document.getElementById("spiral"), {
+      TouchAnimation.addTouchAnimation(document.getElementById("spiral"), {
         duration: 1200,
         radius: 100,
         color: "tomato",
         type: "spiral",
       });
-      addTouchAnimation(document.getElementById("particle"), {
+      TouchAnimation.addTouchAnimation(document.getElementById("particle"), {
         duration: 500,
         radius: 30,
         color: "blue",

@@ -54,5 +54,4 @@ function addTouchAnimation(element, options) {
 
   element.addEventListener("click", animate);
 }
-
 export { addTouchAnimation };

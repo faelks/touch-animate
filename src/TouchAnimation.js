@@ -24,7 +24,6 @@ export class TouchAnimation {
         this.spiral();
         break;
       case "particle":
-        console.log("particle");
         this.particle();
         break;
       case "swell":
