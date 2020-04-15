@@ -33,18 +33,21 @@
     </div>
     <script src="dist/index.js"></script>
     <script>
-      TouchAnimation.addTouchAnimation(document.getElementById("swell"), {
+      TouchAnimation.addTouchAnimation({
+        element: document.getElementById("swell"),
         duration: 800,
         type: "swell",
         color: "green",
       });
-      TouchAnimation.addTouchAnimation(document.getElementById("spiral"), {
+      TouchAnimation.addTouchAnimation({
+        element: document.getElementById("spiral"),
         duration: 1200,
         radius: 100,
         color: "tomato",
         type: "spiral",
       });
-      TouchAnimation.addTouchAnimation(document.getElementById("particle"), {
+      TouchAnimation.addTouchAnimation({
+        element: document.getElementById("particle"),
         duration: 500,
         radius: 30,
         color: "blue",

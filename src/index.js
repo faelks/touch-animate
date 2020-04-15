@@ -18,12 +18,8 @@ function getOptions(inputOptions) {
   };
 }
 
-function addTouchAnimation(element, options) {
-  if (!element) {
-    console.error("No element given");
-    return;
-  }
-
+function addTouchAnimation(options) {
+  const element = options.element || document.body;
   const { radius, duration, steps, color, type, particleCount } = getOptions(
     options
   );
