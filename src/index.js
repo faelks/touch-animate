@@ -4,12 +4,14 @@ import { Canvas } from "./Canvas.js";
 
 function getOptions(inputOptions) {
   const defaultOptions = {
+    element: document.body,
     type: "swell",
     duration: 600,
     steps: 200,
     radius: 30,
     color: "black",
     particleCount: 50,
+    debug: false,
   };
 
   return {
@@ -19,10 +21,16 @@ function getOptions(inputOptions) {
 }
 
 function addTouchAnimation(options) {
-  const element = options.element || document.body;
-  const { radius, duration, steps, color, type, particleCount } = getOptions(
-    options
-  );
+  const {
+    element,
+    radius,
+    duration,
+    steps,
+    color,
+    type,
+    particleCount,
+    debug,
+  } = getOptions(options);
 
   function animate({ pageX, pageY }) {
     const canvas = new Canvas({
@@ -30,6 +38,7 @@ function addTouchAnimation(options) {
       radius,
       color,
       touchPoint: new Point(pageX, pageY),
+      debug
     });
 
     const animation = new TouchAnimation({

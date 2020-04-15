@@ -2,11 +2,12 @@ import { Point } from "./Point.js";
 
 // Wrapper around the <canvas> and its drawing context
 export class Canvas {
-  constructor({ element, radius, touchPoint, color }) {
+  constructor({ element, radius, touchPoint, color, debug }) {
     this.element = element;
     this.touchPoint = touchPoint;
     this.id = `${Math.random() * 10e4}`;
     this.color = color;
+    this.debug = debug;
 
     // All canvas objects are circular
     this.radius = radius;
@@ -23,6 +24,7 @@ export class Canvas {
     left: ${this.touchPoint.x - this.radius}px;
     top: ${this.touchPoint.y - this.radius}px;
     border-radius: ${this.radius}px;
+    ${this.debug && "border: 1px solid red;"}
   `;
   }
 
