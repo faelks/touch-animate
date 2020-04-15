@@ -1,6 +1,7 @@
 import { Point } from "./Point.js";
 import { TouchAnimation } from "./TouchAnimation.js";
 import { Canvas } from "./Canvas.js";
+import { debugPositions } from "./utils.js";
 
 function getOptions(inputOptions) {
   const defaultOptions = {
@@ -32,13 +33,17 @@ function addTouchAnimation(options) {
     debug,
   } = getOptions(options);
 
-  function animate({ pageX, pageY }) {
+  function animate(event) {
+    if (debug) {
+      debugPositions(event);
+    }
+
     const canvas = new Canvas({
       element,
       radius,
       color,
-      touchPoint: new Point(pageX, pageY),
-      debug
+      touchPoint: new Point(event.pageX, event.pageY),
+      debug,
     });
 
     const animation = new TouchAnimation({

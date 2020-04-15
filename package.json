@@ -1,6 +1,6 @@
 {
   "name": "@faelks/touch-animate",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "touch event animation using canvas html elements",
   "main": "dist/index.js",
   "scripts": {

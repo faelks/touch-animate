@@ -35,7 +35,7 @@ export class Canvas {
     htmlNode.width = this.width;
     htmlNode.style = this.getCssStyleString();
 
-    this.element.appendChild(htmlNode);
+    document.body.appendChild(htmlNode);
     return htmlNode;
   }
 
